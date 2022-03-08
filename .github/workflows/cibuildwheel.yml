@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, aarch64]  
-
+        arch: [x86_64, aarch64]
+        python-version: [cp36, cp37, cp38, cp39, cp310]
 
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
       - name: Build wheels
         env:
           CIBW_ARCHS: ${{matrix.arch}}
-          CIBW_BUILD: cp3*
+          CIBW_BUILD: ${{matrix.python-version}}-*
           CIBW_SKIP: '*-musllinux*'
           #CIBW_BEFORE_ALL: yum install -y libcurl-devel python-devel postgresql-devel
           #CIBW_BEFORE_BUILD: pip install -r requirements.txt
